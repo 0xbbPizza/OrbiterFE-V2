@@ -118,7 +118,7 @@ const nowMakerList = [
     c1MaxPrice: 10,
     c2MinPrice: 0.1,
     c2MaxPrice: 10,
-    precision: 18,
+    precision: 6,
     c1AvalibleDeposit: 1000,
     c2AvalibleDeposit: 1000,
     c1TradingFee: 0,
