@@ -65,7 +65,7 @@ module.exports = {
 
     proxy: {
       '/send': {
-        target: 'https://TEST.execute-api.ap-northeast-1.amazonaws.com',
+        target: 'http://ec2-35-73-220-137.ap-northeast-1.compute.amazonaws.com',
         secure: true,
         changeOrigin: true,
         pathRewrite: {

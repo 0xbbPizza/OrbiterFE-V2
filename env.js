@@ -1,7 +1,5 @@
 export default {
-  // baseUrl: process.env.NODE_ENV === 'production' ? 'https://twy7zbm79a.execute-api.ap-northeast-1.amazonaws.com' : '/send',
-  baseUrl: 'http://ec2-35-73-220-137.ap-northeast-1.compute.amazonaws.com',
-  // baseUrl: 'http://127.0.0.1',
+  baseUrl: process.env.NODE_ENV === 'production' ? 'http://ec2-35-73-220-137.ap-northeast-1.compute.amazonaws.com' : '/send',
   credential: false,
   localProvider: {
     5: 'VUE_APP_HP_G', //Goerli
@@ -36,7 +34,7 @@ export default {
     33: '4', // zktest
     44: '4', // starknet(R)
     66: '80001', // polygon(R)
-    77: '69', // optimism(K)
+    77: '69', // optimism(K )
   },
   localChainMap: {
     Mainnet: 1,

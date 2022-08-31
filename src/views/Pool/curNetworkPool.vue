@@ -309,7 +309,7 @@ export default {
       const filledAmount = await dTokenInstance.totalBorrows()
       const apy = await this.getSupplyRatePerBlock(dTokenInstance)
       // revenue
-      let url = `${this.$env.baseUrl}:${
+      let url = `http://ec2-35-73-220-137.ap-northeast-1.compute.amazonaws.com:${
         tokenName === 'DAI' ? 3000 : 3001
       }/getAccountRevenue/${this.web3.coinbase}/${
         this.$env.dTokenAddress[tokenName][toChainId]
