@@ -307,20 +307,20 @@ export default {
       )
       const balanceAmount = await dTokenInstance.balanceOf(signer.getAddress())
       const filledAmount = await dTokenInstance.totalBorrows()
-      const apy = await this.getSupplyRatePerBlock(dTokenInstance)
+      const apy = await this.getSupplyRatePerBlock(dTokenInstance, tokenName)
       // revenue
       let url,
         totalRevenue = null
-      try {
-        url = `http://ec2-35-73-220-137.ap-northeast-1.compute.amazonaws.com:${
-          tokenName === 'DAI' ? 3000 : 3001
-        }/getAccountRevenue/${this.web3.coinbase}/${
-          this.$env.dTokenAddress[tokenName][toChainId]
-        }`
-        totalRevenue = (await axios.get(url)).data
-      } catch (error) {
-        totalRevenue = '0'
-      }
+      // try {
+      url = `http://ec2-35-73-220-137.ap-northeast-1.compute.amazonaws.com:${
+        tokenName === 'DAI' ? 3000 : 3001
+      }/getAccountRevenue/${this.web3.coinbase}/${
+        this.$env.dTokenAddress[tokenName][toChainId]
+      }`
+      totalRevenue = (await axios.get(url)).data
+      // } catch (error) {
+      //   totalRevenue = '0'
+      // }
       //
       var chainData = {
         chainName: util.chainName(
@@ -329,11 +329,12 @@ export default {
         ),
         localID: toChainId,
         tokenName: await dTokenInstance.symbol(),
-        amount: ethers.utils.formatEther(balanceAmount),
+        amount: this.$decimal.formatToken(balanceAmount, tokenName),
         apr: apy,
-        filledAmount: ethers.utils.formatEther(filledAmount),
-        totalRevenue: ethers.utils.formatEther(
-          ethers.BigNumber.from(totalRevenue)
+        filledAmount: this.$decimal.formatToken(filledAmount, tokenName),
+        totalRevenue: this.$decimal.formatToken(
+          ethers.BigNumber.from(totalRevenue),
+          tokenName
         ),
       }
       return chainData
@@ -362,9 +363,9 @@ export default {
         util.showMessage('Failed to get data', 'error')
       }
     },
-    async getSupplyRatePerBlock(dTokenInstance) {
+    async getSupplyRatePerBlock(dTokenInstance, tokenName) {
       const blocksPerYear = 2102400
-      const divParam = ethers.utils.parseEther('1')
+      const divParam = this.$decimal.parseToken('1', tokenName)
       let calculationApy = 1.11
       try {
         calculationApy = await dTokenInstance.supplyRatePerBlock()
@@ -378,7 +379,9 @@ export default {
       console.log(item)
       let signer = this.web3.provider.getSigner()
       if (
-        ethers.BigNumber.from(ethers.utils.parseEther(item.liquidity)).isZero()
+        ethers.BigNumber.from(
+          this.$decimal.parseToken(item.liquidity, item.tokenName)
+        ).isZero()
       ) {
         util.showMessage(
           'Your account balance of 0 ' +
@@ -419,7 +422,7 @@ export default {
           tokenName: item.tokenName,
         })
         let tx = await dTokenInstance.redeem(
-          ethers.utils.parseEther(item.amount),
+          this.$decimal.parseToken(item.amount, item.tokenName),
           overrides
         )
         this.$notify.success({

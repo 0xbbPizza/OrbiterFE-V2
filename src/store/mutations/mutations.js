@@ -1,5 +1,5 @@
 import { toggleBodyCls } from '../../util/theme/theme'
-import decimal from '../../util/decimal/decimal'
+import { number_format } from '../../util/decimal/decimal'
 import { getDefaultProvider } from '../../util/constants/web3/provider'
 export default {
   changeMobileStatus(state, payload) {
@@ -33,11 +33,11 @@ export default {
         state.poolNetworkOrTokenConfig.tokenInfoArray.find(
           (item) => item.token === liquidityDataList[i].tokenName
         ).icon
-      liquidityDataList[i]['liquidity'] = decimal.number_format(
+      liquidityDataList[i]['liquidity'] = number_format(
         liquidityDataList[i]['amount'],
         liquidityDataList[i].tokenName
       )
-      liquidityDataList[i]['totalRevenue'] = decimal.number_format(
+      liquidityDataList[i]['totalRevenue'] = number_format(
         liquidityDataList[i]['totalRevenue'],
         liquidityDataList[i].tokenName,
         liquidityDataList[i]['totalRevenue'] === '0.0' ? undefined : 6
@@ -45,16 +45,16 @@ export default {
       liquidityDataList[i]['apr'] =
         liquidityDataList[i]['apr'] === 0 ? '1.11' : liquidityDataList[i]['apr'].toFixed(2)
       liquidityDataList[i]['dayRevenueTime'] = new Date().getHours()
-      liquidityDataList[i]['dayRevenue'] = decimal.number_format(
+      liquidityDataList[i]['dayRevenue'] = number_format(
         (liquidityDataList[i]['apr'] / 365) * liquidityDataList[i]['amount'],
         liquidityDataList[i].tokenName
       )
-      liquidityDataList[i]['filledAmount'] = decimal.number_format(
+      liquidityDataList[i]['filledAmount'] = number_format(
         liquidityDataList[i]['filledAmount'],
         liquidityDataList[i].tokenName,
         liquidityDataList[i]['filledAmount'] === '0.0' ? undefined : 8
       )
-      liquidityDataList[i]['estimatedProfit'] = decimal.number_format(
+      liquidityDataList[i]['estimatedProfit'] = number_format(
         liquidityDataList[i]['dayRevenue'] * 7,
         liquidityDataList[i].tokenName
       )

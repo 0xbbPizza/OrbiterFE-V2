@@ -116,9 +116,9 @@ function getSourceContract(chainID) {
   }
 }
 
-function getCoinContractInstance(chainID, provider) {
+function getCoinContractInstance(tokenName, chainID, provider) {
   return new ethers.Contract(
-    store.state.poolNetworkOrTokenConfig.toChainAddress[chainID],
+    env.coinAddress[tokenName][chainID],
     CoinABI,
     provider
   )

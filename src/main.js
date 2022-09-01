@@ -6,7 +6,7 @@ import { store } from './store'
 import './config/theme.scss'
 import './config/global.css'
 import env from '../env'
-
+import { decimal } from '../src/util/decimal/decimal'
 import './icons'
 
 import ant from './config/Ant'
@@ -29,6 +29,7 @@ Vue.use(ant)
 Vue.use(element)
 Vue.use(VueClipboard)
 Vue.prototype.$env = env
+Vue.prototype.$decimal = decimal
 
 const defaultTitle = 'Orbiter'
 router.beforeEach((to, from, next) => {

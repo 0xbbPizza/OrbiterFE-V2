@@ -111,5 +111,9 @@ export default {
       5: "0xd35CCeEAD182dcee0F148EbaC9447DA2c4D449c4",
       22: "0xEA70a40Df1432A1b38b916A51Fb81A4cc805a963"
     }
+  },
+  precision:{
+    DAI:18,
+    USDC:6
   }
 }

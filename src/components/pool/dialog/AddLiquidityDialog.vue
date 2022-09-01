@@ -396,6 +396,7 @@ export default {
           ]
         )
         const coinInstance = getCoinContractInstance(
+          this.destChainInfo.tokenName,
           this.poolNetworkOrTokenConfig.toChainId,
           signer
         )
@@ -412,15 +413,26 @@ export default {
           ]
         )
         const coinBalance = await coinInstance.balanceOf(account)
-        if (ethers.utils.parseEther(this.transferValue).isZero()) return
         if (
-          ethers.BigNumber.from(ethers.utils.parseEther(this.transferValue)).gt(
-            coinBalance
-          )
+          this.$decimal
+            .parseToken(this.transferValue, this.destChainInfo.tokenName)
+            .isZero()
+        )
+          return
+        if (
+          ethers.BigNumber.from(
+            this.$decimal.parseToken(
+              this.transferValue,
+              this.destChainInfo.tokenName
+            )
+          ).gt(coinBalance)
         ) {
           util.showMessage(
             'Your account balance is ' +
-              ethers.utils.formatEther(coinBalance) +
+              this.$decimal.formatToken(
+                coinBalance,
+                this.destChainInfo.tokenName
+              ) +
               ' ' +
               this.destChainInfo.tokenName,
             'warning'
@@ -429,7 +441,10 @@ export default {
         }
         if (
           ethers.BigNumber.from(allowanceAmount).lt(
-            ethers.utils.parseEther(this.transferValue)
+            this.$decimal.parseToken(
+              this.transferValue,
+              this.destChainInfo.tokenName
+            )
           )
         ) {
           await coinInstance.approve(
@@ -450,7 +465,10 @@ export default {
             tokenName: this.destChainInfo.tokenName,
           })
           let tx = await dTokenInstance.mint(
-            ethers.utils.parseEther(this.transferValue),
+            this.$decimal.parseToken(
+              this.transferValue,
+              this.destChainInfo.tokenName
+            ),
             overrides
           )
           this.$notify.success({
