@@ -319,7 +319,7 @@ export default {
         }`
         totalRevenue = (await axios.get(url)).data
       } catch (error) {
-        totalRevenue = '0.0'
+        totalRevenue = '0'
       }
       //
       var chainData = {
