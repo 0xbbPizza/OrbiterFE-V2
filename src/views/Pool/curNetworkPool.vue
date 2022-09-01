@@ -250,9 +250,9 @@ export default {
         },
       ])
 
-      // 获取最新代币列表
+      // Get the latest token list
       this.getAllTokenArray(null)
-      // 获取 当前网络下 的流动池信息
+      // Obtain the flow pool information under the current network.
       this.getCurNetworkliquidityData()
     },
     getAllTokenArray(val) {
@@ -309,13 +309,18 @@ export default {
       const filledAmount = await dTokenInstance.totalBorrows()
       const apy = await this.getSupplyRatePerBlock(dTokenInstance)
       // revenue
-      let url = `http://ec2-35-73-220-137.ap-northeast-1.compute.amazonaws.com:${
-        tokenName === 'DAI' ? 3000 : 3001
-      }/getAccountRevenue/${this.web3.coinbase}/${
-        this.$env.dTokenAddress[tokenName][toChainId]
-      }`
-      const totalRevenue = (await axios.get(url)).data
-
+      let url,
+        totalRevenue = null
+      try {
+        url = `http://ec2-35-73-220-137.ap-northeast-1.compute.amazonaws.com:${
+          tokenName === 'DAI' ? 3000 : 3001
+        }/getAccountRevenue/${this.web3.coinbase}/${
+          this.$env.dTokenAddress[tokenName][toChainId]
+        }`
+        totalRevenue = (await axios.get(url)).data
+      } catch (error) {
+        totalRevenue = '0.0'
+      }
       //
       var chainData = {
         chainName: util.chainName(
