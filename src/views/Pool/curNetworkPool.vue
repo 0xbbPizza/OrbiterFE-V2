@@ -307,7 +307,7 @@ export default {
       )
       const balanceAmount = await dTokenInstance.balanceOf(signer.getAddress())
       const filledAmount = await dTokenInstance.totalBorrows()
-      const apy = await this.getSupplyRatePerBlock(dTokenInstance, tokenName)
+      const apy = await this.getSupplyRatePerBlock(dTokenInstance)
       // revenue
       let url,
         totalRevenue = null
@@ -320,6 +320,10 @@ export default {
         }`
         totalRevenue = (await axios.get(url)).data
       } catch (error) {
+        console.log(
+          'the totalRevenue will be set 0 ,because http error:',
+          error
+        )
         totalRevenue = '0'
       }
 
@@ -364,9 +368,9 @@ export default {
         util.showMessage('Failed to get data', 'error')
       }
     },
-    async getSupplyRatePerBlock(dTokenInstance, tokenName) {
+    async getSupplyRatePerBlock(dTokenInstance) {
       const blocksPerYear = 2102400
-      const divParam = this.$decimal.parseToken('1', tokenName)
+      const divParam = this.$decimal.parseToken('1', null)
       let calculationApy = 1.11
       try {
         calculationApy = await dTokenInstance.supplyRatePerBlock()
