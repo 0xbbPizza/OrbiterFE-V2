@@ -311,17 +311,18 @@ export default {
       // revenue
       let url,
         totalRevenue = null
-      // try {
-      url = `http://ec2-35-73-220-137.ap-northeast-1.compute.amazonaws.com:${
-        tokenName === 'DAI' ? 3000 : 3001
-      }/getAccountRevenue/${this.web3.coinbase}/${
-        this.$env.dTokenAddress[tokenName][toChainId]
-      }`
-      totalRevenue = (await axios.get(url)).data
-      // } catch (error) {
-      //   totalRevenue = '0'
-      // }
-      //
+      try {
+        url = `http://ec2-35-73-220-137.ap-northeast-1.compute.amazonaws.com:${
+          // url = `http://127.0.0.1:${
+          tokenName === 'DAI' ? 3000 : 3001
+        }/getAccountRevenue/${this.web3.coinbase}/${
+          this.$env.dTokenAddress[tokenName][toChainId]
+        }`
+        totalRevenue = (await axios.get(url)).data
+      } catch (error) {
+        totalRevenue = '0'
+      }
+
       var chainData = {
         chainName: util.chainName(
           toChainId,
