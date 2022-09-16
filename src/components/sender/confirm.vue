@@ -299,6 +299,12 @@ export default {
         ? this.$store.state.transferData.destAddress
         : this.$store.state.web3.coinbase
 
+      if (
+        this.transferData.selectMakerInfo.t1Address ==
+        ethers.constants.AddressZero
+      ) {
+        // tokenAddress is eth
+      }
       // When tokenAddress is erc20
       const transferContract = getTransferContract(fromChainID, selectMakerInfo)
       const sourceContract = getSourceContract(

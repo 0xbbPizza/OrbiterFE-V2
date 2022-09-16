@@ -73,6 +73,10 @@ export default {
     77: 'https://kovan-optimistic.etherscan.io/address/',
   },
   dTokenAddress: {
+    ETH: {
+      5: "0xB31FaA6d2728B10E6877fBb2b07432c1f3dd3388",
+      22: "0x2f4C0027beE4CC7944A11A921Bc7BcFfE00a8698"
+    },
     DAI: {
       5: "0x3484fa63622fdBc33BD709B3d23b68755C4642C1",
       22: "0x905237E61BCeBE22a1E585EC1673b848d237fC8D"
@@ -83,6 +87,10 @@ export default {
     },
   },
   destAddress: {
+    ETH: {
+      5: "0xA898bc979305Bab4E8177019610C4564D5B4CA81",
+      22: "0x9a208650De238c8DC4DCB0Dc4566AD19177fB191"
+    },
     DAI: {
       5: "0x0dcDa24e719378fE0f18e117DF8c178b9EFEEb57",
       22: "0x314b9AF6cda2d332C00e33f55515eb04d4a012c1"
@@ -93,6 +101,10 @@ export default {
     }
   },
   sourceAddress: {
+    ETH: {
+      5: "0x26506cdD18D7F7f5D8B4e51B11546E40FE42A1a0",
+      22: "0x11A88Ed5a0aC4D6570205D967dB3f93c8AEC3925"
+    },
     DAI: {
       5: "0xD1f04Fe74fefED4558513da8db171Ef9cF2ec5A3",
       22: "0x8F4708a973faa099a98519F7515644B0F57dCa67"
@@ -104,6 +116,10 @@ export default {
   },
 
   coinAddress: {
+    ETH: {
+      5: "0x0000000000000000000000000000000000000000",
+      22: "0x0000000000000000000000000000000000000000",
+    },
     DAI: {
       5: "0x5C221E77624690fff6dd741493D735a17716c26B",
       22: "0x3d9835F9cB196f8A88b0d4F9586C3E427af1Ffe0",
@@ -114,6 +130,7 @@ export default {
     }
   },
   precision: {
+    ETH: 18,
     DAI: 18,
     USDC: 6
   }
