@@ -304,6 +304,8 @@ export default {
         ethers.constants.AddressZero
       ) {
         // tokenAddress is eth
+      } else {
+        // tokenAddress is erc20
       }
       // When tokenAddress is erc20
       const transferContract = getTransferContract(fromChainID, selectMakerInfo)
