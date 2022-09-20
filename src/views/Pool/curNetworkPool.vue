@@ -400,7 +400,7 @@ export default {
         )
         return
       }
-      if (item.filledAmount !== '0.00') {
+      if (Number(item.filledAmount) !== 0) {
         util.showMessage(
           'Borrowing has been started and full redemption is not supported for the time being.',
           'warning'

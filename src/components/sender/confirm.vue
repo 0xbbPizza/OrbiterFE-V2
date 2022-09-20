@@ -299,14 +299,14 @@ export default {
         ? this.$store.state.transferData.destAddress
         : this.$store.state.web3.coinbase
 
-      if (
-        this.transferData.selectMakerInfo.t1Address ==
-        ethers.constants.AddressZero
-      ) {
-        // tokenAddress is eth
-      } else {
-        // tokenAddress is erc20
-      }
+      // if (
+      //   this.transferData.selectMakerInfo.t1Address ==
+      //   ethers.constants.AddressZero
+      // ) {
+      //   // tokenAddress is eth
+      // } else {
+      //   // tokenAddress is erc20
+      // }
       // When tokenAddress is erc20
       const transferContract = getTransferContract(fromChainID, selectMakerInfo)
       const sourceContract = getSourceContract(
@@ -329,93 +329,145 @@ export default {
         return
       }
       const account = this.$store.state.web3.coinbase
-      const objOption = { from: account, gasLimit: 1000000 }
-      console.warn('account =', account)
-      console.warn('objOption =', objOption)
-      console.warn('amount =', amount)
-      console.warn(
-        'source =',
-        this.$env.sourceAddress[this.transferData.selectTokenInfo.token][
-          this.transferData.fromChainID
-        ]
-      )
-
-      const allowance = await transferContract.methods
-        .allowance(
-          account,
-          this.$env.sourceAddress[this.transferData.selectTokenInfo.token][
-            this.transferData.fromChainID
-          ]
-        )
-        .call()
-      console.warn('transferContract allowance: ', allowance)
 
       try {
-        if (ethers.BigNumber.from(allowance).lt(amount)) {
-          const approveTransactionHash = await transferContract.methods
-            .approve(
+        if (
+          this.transferData.selectMakerInfo.t1Address ==
+          ethers.constants.AddressZero
+        ) {
+          // ETH
+          const objOption = { from: account, gasLimit: 1000000, value: amount }
+          if (dest) {
+            sourceContract.methods
+              .transferWithDest(
+                Number(this.$store.state.transferData.toChainID),
+                dest,
+                amount,
+                0
+              )
+              .send(objOption, (error, transactionHash) => {
+                this.transferLoading = false
+                if (!error) {
+                  console.warn('dest_transactionHash =', transactionHash)
+                  this.onTransferSucceed(
+                    account,
+                    selectMakerInfo,
+                    amount,
+                    fromChainID,
+                    transactionHash,
+                    dest
+                  )
+                } else {
+                  this.$notify.error({
+                    title: error.message,
+                    duration: 3000,
+                  })
+                }
+              })
+          } else {
+            sourceContract.methods
+              .transfer(
+                Number(this.$store.state.transferData.fromChainID),
+                amount,
+                0
+              )
+              .send(objOption, (error, transactionHash) => {
+                this.transferLoading = false
+                if (!error) {
+                  console.warn('transactionHash =', transactionHash)
+                  this.onTransferSucceed(
+                    account,
+                    selectMakerInfo,
+                    amount,
+                    fromChainID,
+                    transactionHash,
+                    dest
+                  )
+                } else {
+                  this.$notify.error({
+                    title: error.message,
+                    duration: 3000,
+                  })
+                }
+              })
+          }
+        } else {
+          // ERC20
+          const objOption = { from: account, gasLimit: 1000000 }
+          const allowance = await transferContract.methods
+            .allowance(
+              account,
               this.$env.sourceAddress[this.transferData.selectTokenInfo.token][
                 this.transferData.fromChainID
-              ],
-              ethers.constants.MaxUint256
+              ]
             )
-            .send(objOption)
-          console.warn('approveTransactionHash =', approveTransactionHash)
-        }
-
-        if (dest) {
-          sourceContract.methods
-            .transferWithDest(
-              Number(this.$store.state.transferData.toChainID),
-              dest,
-              amount,
-              0
-            )
-            .send(objOption, (error, transactionHash) => {
-              this.transferLoading = false
-              if (!error) {
-                console.warn('dest_transactionHash =', transactionHash)
-                this.onTransferSucceed(
-                  account,
-                  selectMakerInfo,
-                  amount,
-                  fromChainID,
-                  transactionHash,
-                  dest
-                )
-              } else {
-                this.$notify.error({
-                  title: error.message,
-                  duration: 3000,
-                })
-              }
-            })
-        } else {
-          sourceContract.methods
-            .transfer(
-              Number(this.$store.state.transferData.fromChainID),
-              amount,
-              0
-            )
-            .send(objOption, (error, transactionHash) => {
-              this.transferLoading = false
-              if (!error) {
-                console.warn('transactionHash =', transactionHash)
-                this.onTransferSucceed(
-                  account,
-                  selectMakerInfo,
-                  amount,
-                  fromChainID,
-                  transactionHash,
-                  dest
-                )
-              } else {
-                this.$notify.error({
-                  title: error.message,
-                  duration: 3000,
-                })
-              }
-            })
+            .call()
+          console.warn('transferContract allowance: ', allowance)
+          if (ethers.BigNumber.from(allowance).lt(amount)) {
+            const approveTransactionHash = await transferContract.methods
+              .approve(
+                this.$env.sourceAddress[
+                  this.transferData.selectTokenInfo.token
+                ][this.transferData.fromChainID],
+                ethers.constants.MaxUint256
+              )
+              .send(objOption)
+            console.warn('approveTransactionHash =', approveTransactionHash)
+          }
+          if (dest) {
+            sourceContract.methods
+              .transferWithDest(
+                Number(this.$store.state.transferData.toChainID),
+                dest,
+                amount,
+                0
+              )
+              .send(objOption, (error, transactionHash) => {
+                this.transferLoading = false
+                if (!error) {
+                  console.warn('dest_transactionHash =', transactionHash)
+                  this.onTransferSucceed(
+                    account,
+                    selectMakerInfo,
+                    amount,
+                    fromChainID,
+                    transactionHash,
+                    dest
+                  )
+                } else {
+                  this.$notify.error({
+                    title: error.message,
+                    duration: 3000,
+                  })
+                }
+              })
+          } else {
+            sourceContract.methods
+              .transfer(
+                Number(this.$store.state.transferData.fromChainID),
+                amount,
+                0
+              )
+              .send(objOption, (error, transactionHash) => {
+                this.transferLoading = false
+                if (!error) {
+                  console.warn('transactionHash =', transactionHash)
+                  this.onTransferSucceed(
+                    account,
+                    selectMakerInfo,
+                    amount,
+                    fromChainID,
+                    transactionHash,
+                    dest
+                  )
+                } else {
+                  this.$notify.error({
+                    title: error.message,
+                    duration: 3000,
+                  })
+                }
+              })
+          }
         }
       } catch (error) {
         this.transferLoading = false

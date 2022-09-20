@@ -64,13 +64,12 @@
                   align-items: center;
                 "
               >
-                <!-- @input="checkTransferValue()" -->
                 <input
                   type="text"
                   v-model="transferValue"
                   class="right"
                   :maxlength="18"
-                  placeholder="0.0"
+                  placeholder="at least 0.001"
                 />
                 <el-button @click="fromMax" class="maxBtn" style>Max</el-button>
               </div>
@@ -109,7 +108,7 @@
 </template>
 
 <script>
-import { ethers } from 'ethers'
+import { ethers, constants } from 'ethers'
 import { mapState, mapMutations, mapGetters } from 'vuex'
 import { SvgIconThemed, CommLoading } from '../../'
 import NetworkSelect from '../select/NetworkSelect.vue'
@@ -388,37 +387,66 @@ export default {
     },
     async confirmAddLiquidity() {
       this.isLoading = true
-      let signer = this.web3.provider.getSigner()
+      const signer = this.web3.provider.getSigner()
+      const isETH =
+        this.realSelectMakerInfo.t1Address === constants.AddressZero
+          ? true
+          : false
       try {
         await util.ensureMetamaskNetwork(
           this.$env.localChainID_netChainID[
             this.poolNetworkOrTokenConfig.toChainId
           ]
         )
-        const coinInstance = getCoinContractInstance(
-          this.destChainInfo.tokenName,
-          this.poolNetworkOrTokenConfig.toChainId,
-          signer
-        )
+        let coinInstance
+        if (!isETH) {
+          coinInstance = getCoinContractInstance(
+            this.destChainInfo.tokenName,
+            this.poolNetworkOrTokenConfig.toChainId,
+            signer
+          )
+        }
+
         const dTokenInstance = getDTokenContractInstance(
           this.destChainInfo.tokenName,
           this.poolNetworkOrTokenConfig.toChainId,
           signer
         )
         const account = await signer.getAddress()
-        const allowanceAmount = await coinInstance.allowance(
-          account,
-          this.$env.dTokenAddress[this.destChainInfo.tokenName][
-            this.poolNetworkOrTokenConfig.toChainId
-          ]
-        )
-        const coinBalance = await coinInstance.balanceOf(account)
+        let allowanceAmount
+        let coinBalance
+        if (!isETH) {
+          allowanceAmount = await coinInstance.allowance(
+            account,
+            this.$env.dTokenAddress[this.destChainInfo.tokenName][
+              this.poolNetworkOrTokenConfig.toChainId
+            ]
+          )
+          coinBalance = await coinInstance.balanceOf(account)
+        } else {
+          coinBalance = await signer.getBalance()
+        }
+
         if (
           this.$decimal
             .parseToken(this.transferValue, this.destChainInfo.tokenName)
             .isZero()
         )
           return
+        if (
+          ethers.BigNumber.from(
+            this.$decimal.parseToken(
+              this.transferValue,
+              this.destChainInfo.tokenName
+            )
+          ).lt(this.$decimal.parseToken('0.001'))
+        ) {
+          util.showMessage(
+            'The minimum amount you enter must be greater than or equal to 0.001',
+            'warning'
+          )
+          return
+        }
         if (
           ethers.BigNumber.from(
             this.$decimal.parseToken(
@@ -440,6 +468,7 @@ export default {
           return
         }
         if (
+          !isETH &&
           ethers.BigNumber.from(allowanceAmount).lt(
             this.$decimal.parseToken(
               this.transferValue,
@@ -458,6 +487,12 @@ export default {
           from: account,
           gasLimit: 1000000,
         }
+        isETH
+          ? (overrides.value = this.$decimal.parseToken(
+              this.transferValue,
+              this.destChainInfo.tokenName
+            ))
+          : null
         try {
           this.updateLiquidityDataStatus({
             type: 'addLiquidityLoading',

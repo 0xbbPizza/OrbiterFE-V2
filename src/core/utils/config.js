@@ -2,7 +2,7 @@ export default {
   etherscan: {
     key: '14PRR4UT6TKMGNX8U4FGMQR3D2KAIY2ICR',
     Mainnet: 'https://api.etherscan.io/api',
-    Rinkeby: 'https://api-rinkeby.etherscan.io/api',
+    Goerli: 'https://api-goerli.etherscan.io/api',
     chainID: '1'
   },
   zkSync: {
@@ -13,7 +13,7 @@ export default {
   },
   arbitrum: {
     Mainnet: 'https://api.arbiscan.io/api',
-    Goerli: 'https://api-testnet.arbiscan.io/api',
+    Goerli: 'https://goerli-rollup-explorer.arbitrum.io/api',
     chainID: '2',
     goerliChainID: '22'
   },
