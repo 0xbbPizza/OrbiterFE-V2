@@ -13,7 +13,7 @@ export default {
     return new Promise((resolve, reject) => {
       const params = {
         module: 'account',
-        action: isTokentx ? 'tokentx' : 'txlist',
+        action: isTokentx ? 'tokentx' : 'txlistinternal',
         contractaddress: req.tokenAddress,
         address: req.maker,
         startblock: req.startblock,

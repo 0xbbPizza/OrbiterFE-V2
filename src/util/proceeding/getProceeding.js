@@ -9,8 +9,6 @@ import BigNumber from 'bignumber.js'
 import { constants } from 'ethers'
 import env from '../../../env'
 
-let startBlockNumber = ''
-
 const getHistory = () => {
   if (store.getters.realSelectMakerInfo) {
     getTransactionList
@@ -201,7 +199,8 @@ function ScanMakerTransfer(
     // when is eth tokenAddress
     if (util.isEthTokenAddress(tokenAddress)) {
       let api = null
-      let action = null
+      let extra = null
+      const timestamp = Math.floor((new Date().getTime() - 60000 * 2) / 1000)
       switch (TransferChainID) {
         case 1:
           api = {
@@ -214,14 +213,22 @@ function ScanMakerTransfer(
             endPoint: config.etherscan.Goerli,
             key: config.etherscan.key,
           }
-          action = 'txlist'
+          extra = {
+            action: 'txlistinternal',
+            TransferChainID,
+            timestamp
+          }
           break
         case 2:
           api = { endPoint: config.arbitrum.Mainnet, key: '' }
           break
         case 22:
           api = { endPoint: config.arbitrum.Goerli, key: '' }
-          action = 'txlistinternal'
+          extra = {
+            action: 'txlistinternal',
+            TransferChainID,
+            timestamp
+          }
           break
         case 7:
           api = {
@@ -240,7 +247,7 @@ function ScanMakerTransfer(
         return
       }
 
-      new EthListen(api, action, to, async () => startBlockNumber)
+      new EthListen(api, extra, to)
         .setTransferBreaker(() => isCurrentTransaction(transactionID))
         .transfer(
           { from, to },
