@@ -54,7 +54,7 @@
 </template>
 
 <script>
-import { SvgIconThemed } from '../../'
+import { SvgIconThemed } from '../'
 import { mapState } from 'vuex'
 
 export default {

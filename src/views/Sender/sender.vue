@@ -19,7 +19,7 @@
       v-on:stateChanged="changeState"
       v-if="showDetail"
     />
-    <div class="grant">
+    <!-- <div class="grant">
       <span>
         Welcome to Pizza 🍕 Bridge, a decentralized L222 bridge, <br />
         Idea from Vitalik:<a
@@ -38,12 +38,12 @@
           <a href="https://mint.zksync.dev/mint" target="_blank">this faucet</a>
         </p>
       </span>
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script>
-import Transfer from '../../components/sender/transfer'
+import Transfer from './transfer'
 import Confirm from '../../components/sender/confirm'
 import Proceed from '../../components/sender/proceed'
 import Detail from '../../components/sender/detail'

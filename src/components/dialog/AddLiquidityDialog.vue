@@ -110,16 +110,16 @@
 <script>
 import { ethers, constants } from 'ethers'
 import { mapState, mapMutations, mapGetters } from 'vuex'
-import { SvgIconThemed, CommLoading } from '../../'
+import { SvgIconThemed, CommLoading } from '../'
 import NetworkSelect from '../select/NetworkSelect.vue'
 import TokenSelect from '../select/TokenSelect.vue'
-import CommDialog from '../../comm/CommDialog.vue'
+import CommDialog from '../comm/CommDialog.vue'
 import {
   getCoinContractInstance,
   getDTokenContractInstance,
-} from '../../../util/constants/contract/getContract'
-import util from '../../../util/util'
-import transferCalculate from '../../../util/transfer/transferCalculate'
+} from '../../util/constants/contract/getContract'
+import util from '../../util/util'
+import transferCalculate from '../../util/transfer/transferCalculate'
 export default {
   name: 'AddLiquidityDialog',
   props: {

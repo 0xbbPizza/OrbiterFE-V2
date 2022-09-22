@@ -56,8 +56,8 @@
 </template>
 
 <script>
-import util from '../../../util/util'
-import { SvgIconThemed } from '../../'
+import util from '../../util/util'
+import { SvgIconThemed } from '../'
 
 export default {
   name: 'NetworkSelect',

@@ -63,7 +63,6 @@
               </li>
             </ul>
           </div>
-          <!-- <div @click="clickLearnMore" class="maker-link">LEARN MORE</div> -->
           <div class="maker-foot-btn mbtn">
             Download the Market Maker Client
           </div>
@@ -139,11 +138,7 @@ export default {
   .bridage-page {
     .maker-box {
       width: 56rem;
-      // height: 33.1rem;
       .maker-content {
-        .maker-foot-btn {
-          // width: 40rem;
-        }
         .mbtn {
           background: linear-gradient(90.46deg, #eb382d 4.07%, #bc3035 98.55%);
           box-shadow: inset 0px -8px 0px rgba(0, 0, 0, 0.16);
@@ -215,7 +210,7 @@ export default {
   }
   .sender-box {
     border-radius: 2rem;
-    overflow-y: scroll;
+    // overflow-y: scroll;
   }
   .maker-box {
     border-radius: 2rem;
@@ -257,7 +252,6 @@ export default {
   }
   .pool-box {
     width: 112rem;
-    // height: 110rem;
   }
 }
 </style>
