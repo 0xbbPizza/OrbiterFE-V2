@@ -215,6 +215,10 @@
         }
       }
     }
+    .destContent {
+      background: var(--dark-page-box-bg);
+      color: var(--dark-page-box-color);
+    }
     .info-box {
       .info-item {
         .border {
@@ -579,6 +583,10 @@
           color: rgba(51, 51, 51, 0.8);
         }
       }
+    }
+    .destContent {
+      background: var(--light-page-box-bg);
+      color: rgba(51, 51, 51, 0.8);
     }
     .info-box {
       .info-item {
