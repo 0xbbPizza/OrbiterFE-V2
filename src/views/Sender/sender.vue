@@ -44,7 +44,7 @@
 
 <script>
 import Transfer from './transfer'
-import Confirm from '../../components/sender/confirm'
+import Confirm from './confirm'
 import Proceed from '../../components/sender/proceed'
 import Detail from '../../components/sender/detail'
 import Middle from '../../util/middle/middle'

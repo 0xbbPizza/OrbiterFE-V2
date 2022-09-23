@@ -1493,6 +1493,7 @@ export default {
   .top-area {
     display: flex;
     align-items: center;
+    margin-left: 2rem;
     .left {
       font-family: 'Inter';
       font-style: normal;
@@ -1534,7 +1535,7 @@ export default {
     .bottomItem {
       display: flex;
       justify-content: space-between;
-      margin-top: 1.2rem;
+      margin-top: 0.8rem;
       align-items: center;
 
       .selectChain {
