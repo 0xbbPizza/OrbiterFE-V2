@@ -74,8 +74,8 @@ export default {
   },
   dTokenAddress: {
     ETH: {
-      5: "0xeD79bA7F9D36d70dF2025703577080F57c25b4DB",
-      22: "0x91Bf87A71A8d7E6bDF86f1dfa9c7965dAb8B6EeB"
+      5: "0x9fCd2baEd3AfE7Fd35d8F38D2A5305526D326f86",
+      22: "0x99EEdbaf75827207fCFEDd4f7211F57Ed5431c15"
     },
     DAI: {
       5: "0x3484fa63622fdBc33BD709B3d23b68755C4642C1",
@@ -88,8 +88,8 @@ export default {
   },
   destAddress: {
     ETH: {
-      5: "0xD82B3BCAaA52483a22ED1a9EffCf223af8dd4755",
-      22: "0x8f90F2c92d675D433be07669D5d73cb45939FD06"
+      5: "0xe5c1879aD1A7762DcC19795C0027fe1cFBC93F95",
+      22: "0xDE2806B339045ed88e5C89022C19C551C891C1F2"
     },
     DAI: {
       5: "0x0dcDa24e719378fE0f18e117DF8c178b9EFEEb57",
@@ -102,8 +102,8 @@ export default {
   },
   sourceAddress: {
     ETH: {
-      5: "0x4CF377E37681c81a0AcAD145cde0Cb1B705b767a",
-      22: "0x73e285b05468d988Ed3780CfB74AD0d06d119220"
+      5: "0xa2b7345BE8D7467eA462388ADdA8C314f6d4DE60",
+      22: "0x1EAD43aE303D49c147E92A0F0271C8ffED8abCa6"
     },
     DAI: {
       5: "0xD1f04Fe74fefED4558513da8db171Ef9cF2ec5A3",
