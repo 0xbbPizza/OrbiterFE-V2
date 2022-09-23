@@ -1,10 +1,16 @@
 <template>
-  <div class="o-button"
-       :style="{width:width,height:height}">
-    <button :style="{background:btnBgc,color:btnColor,fontSize:fontSize,boxShadow:boxShadow}"
-            @click="handleClick"
-            :disabled='isDisabled'
-            class="obtn">
+  <div class="orbiterBtn" :style="{ width: width, height: height }">
+    <button
+      :style="{
+        background: btnBgc,
+        color: btnColor,
+        fontSize: fontSize,
+        boxShadow: boxShadow,
+      }"
+      @click="handleClick"
+      :disabled="isDisabled"
+      class="obtn"
+    >
       <label class="btnText">
         <slot></slot>
       </label>
@@ -13,59 +19,54 @@
 </template>
 
 <script>
-
 export default {
-  name: 'o-button',
+  name: 'orbiterBtn',
   props: {
     btnBgc: {
       type: String,
-      default: 'radial-gradient(at 50% 0,#FE7E6E, #EC201E)'
+      default: 'radial-gradient(at 50% 0,#FE7E6E, #EC201E)',
     },
     btnColor: {
       type: String,
-      default: '#fff'
+      default: '#fff',
     },
     width: {
       type: String,
-      default: '10rem'
+      default: '10rem',
     },
     height: {
       type: String,
-      default: '2.2rem'
+      default: '2.2rem',
     },
     fontSize: {
       type: String,
-      default: '0.8rem'
+      default: '0.8rem',
     },
     boxShadow: {
       type: String,
-      default: '0px 0.8rem 1.2rem 0px rgba(228,22,22,0.4)'
+      default: '0px 0.8rem 1.2rem 0px rgba(228,22,22,0.4)',
     },
     isDisabled: {
       type: String,
-      default: null
-    }
+      default: null,
+    },
   },
   data() {
-    return {
-    }
+    return {}
   },
-  mounted() {
-
-  },
-  watch: {
-  },
+  mounted() {},
+  watch: {},
   methods: {
     handleClick() {
       this.$emit('click')
-    }
-  }
+    },
+  },
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
-.o-button {
+.orbiterBtn {
   background-color: transparent;
   border-width: 0.1rem;
   border-color: black;

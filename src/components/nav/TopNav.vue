@@ -78,8 +78,8 @@
 
 <script>
 import { SvgIconThemed } from '../'
-import HeaderOps from './HeaderOps.vue'
-import HeaderLinks from './HeaderLinks.vue'
+import HeaderOps from './HeaderOps'
+import HeaderLinks from './HeaderLinks'
 import Middle from '../../util/middle/middle'
 import { mapGetters, mapState, mapMutations } from 'vuex'
 

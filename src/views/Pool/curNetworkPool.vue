@@ -32,7 +32,7 @@
         >
       </div>
       <div class="pool-box-main">
-        <CommLoading
+        <comm-loading
           v-if="isLoading"
           style="margin: auto; margin-top: 5rem"
           width="4rem"
@@ -160,7 +160,7 @@
       <all-network-pool v-on:deliveryInfo="showAddLiquidityDialog" />
     </template>
 
-    <pool-add-liquidity
+    <add-liquidity-dialog
       :destChainInfo="destChainInfo"
       v-on:updateTokens="getAllTokenArray"
       v-on:updateLiquidity="getCurNetworkliquidityData"
@@ -169,7 +169,11 @@
 </template>
 
 <script>
-import { SvgIconThemed, CommLoading, PoolAddLiquidity } from '../../components'
+import {
+  SvgIconThemed,
+  CommLoading,
+  AddLiquidityDialog,
+} from '../../components'
 import allNetworkPool from './allNetworkPool.vue'
 import config from '../../config'
 import util from '../../util/util'
@@ -179,7 +183,12 @@ import { mapState, mapMutations, mapGetters } from 'vuex'
 import { getDTokenContractInstance } from '../../util/constants/contract/getContract'
 export default {
   name: 'curNetworkPool',
-  components: { SvgIconThemed, CommLoading, PoolAddLiquidity, allNetworkPool },
+  components: {
+    SvgIconThemed,
+    CommLoading,
+    AddLiquidityDialog,
+    allNetworkPool,
+  },
   computed: {
     ...mapState(['curPage', 'web3', 'poolNetworkOrTokenConfig']),
     ...mapGetters(['getCurNetworkLiquidityData', 'HasOrNotTrading']),

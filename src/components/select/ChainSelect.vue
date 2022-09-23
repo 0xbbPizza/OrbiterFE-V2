@@ -60,7 +60,7 @@ import util from '../../util/util'
 import { SvgIconThemed } from '../'
 
 export default {
-  name: 'NetworkSelect',
+  name: 'ChainSelect',
   components: { SvgIconThemed },
   props: {
     ChainData: {

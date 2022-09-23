@@ -21,7 +21,7 @@
         >
       </div>
       <div class="table historyContent">
-        <CommLoading
+        <comm-loading
           v-if="isLoading"
           style="margin: auto; margin-top: 5rem"
           width="4rem"

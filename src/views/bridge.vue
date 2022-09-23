@@ -154,11 +154,6 @@ export default {
         }
       }
     }
-    .sender-box {
-      width: 48rem;
-      height: 54rem;
-      padding: 2.4rem 2rem;
-    }
   }
 }
 .app-mobile {

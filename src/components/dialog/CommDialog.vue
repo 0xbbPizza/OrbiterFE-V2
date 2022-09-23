@@ -1,10 +1,21 @@
 <template>
-  <div class="comm-dialog-box" :style="{display: showCommDialog ? 'block': 'none'}">
-    <div :class="{'CommDialog':showCommDialog}"
-         @touchmove.prevent.stop
-         @click="maskClick"></div>
-    <div @click="maskClick"
-         :class="['CommDialogContent', 'center', {'CommDialogContentShow':showCommDialog}]">
+  <div
+    class="comm-dialog-box"
+    :style="{ display: showCommDialog ? 'block' : 'none' }"
+  >
+    <div
+      :class="{ CommDialog: showCommDialog }"
+      @touchmove.prevent.stop
+      @click="maskClick"
+    ></div>
+    <div
+      @click="maskClick"
+      :class="[
+        'CommDialogContent',
+        'center',
+        { CommDialogContentShow: showCommDialog },
+      ]"
+    >
       <slot name="PoperContent" class="stopPenetrate"></slot>
     </div>
   </div>
@@ -12,22 +23,23 @@
 
 <script>
 export default {
+  name: 'CommDialog',
   data() {
     return {
       showCommDialog: false,
-    };
+    }
   },
   methods: {
     showCustom() {
-      this.showCommDialog = true;
+      this.showCommDialog = true
       // document.body.className = "noScroll"
-      document.body.classList.add("noScroll")
+      document.body.classList.add('noScroll')
     },
     maskClick() {
-      this.showCommDialog = false;
+      this.showCommDialog = false
       // document.body.className = "scroll"
-    }
-  }
+    },
+  },
 }
 </script>
 

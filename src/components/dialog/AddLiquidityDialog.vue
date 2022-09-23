@@ -38,7 +38,7 @@
           <div class="liquidity-value">
             <div class="topItem">
               <div class="left">
-                <token-select
+                <TokenSelect
                   :datas="tokens()"
                   v-model="destChainInfo.tokenName"
                   @input="selectedTokenChange"
@@ -94,16 +94,16 @@
         </span>
       </div>
     </div>
-    <comm-dialog ref="SelectNetworkPopupRef">
+    <CommDialog ref="SelectNetworkPopupRef">
       <div slot="PoperContent" style="width: 100%">
-        <network-select
+        <ChainSelect
           :ChainData="poolNetworkOrTokenConfig.NetworkArray"
           :selectData="poolNetworkOrTokenConfig.toChainId"
           v-on:closeSelect="closeNetworkPopupClick()"
           v-on:getNetworkInfo="getNewNetworkInfo"
         />
       </div>
-    </comm-dialog>
+    </CommDialog>
   </div>
 </template>
 
@@ -111,9 +111,9 @@
 import { ethers, constants } from 'ethers'
 import { mapState, mapMutations, mapGetters } from 'vuex'
 import { SvgIconThemed, CommLoading } from '../'
-import NetworkSelect from '../select/NetworkSelect.vue'
-import TokenSelect from '../select/TokenSelect.vue'
-import CommDialog from '../comm/CommDialog.vue'
+import ChainSelect from '../Select/ChainSelect'
+import TokenSelect from '../Select/TokenSelect'
+import CommDialog from './CommDialog'
 import {
   getCoinContractInstance,
   getDTokenContractInstance,
@@ -130,7 +130,7 @@ export default {
   },
   components: {
     SvgIconThemed,
-    NetworkSelect,
+    ChainSelect,
     TokenSelect,
     CommDialog,
     CommLoading,

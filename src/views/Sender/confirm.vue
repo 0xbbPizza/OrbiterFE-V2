@@ -14,12 +14,12 @@
       <div class="item-left">
         <SvgIconThemed :icon="item.icon" />
         <span class="left-txt">{{ item.title }}</span>
-        <o-tooltip placement="topLeft">
+        <comm-tooltip placement="topLeft">
           <template v-slot:titleDesc>
             <span>{{ item.notice }}</span>
           </template>
           <HelpIcon v-if="item.notice" size="sm" />
-        </o-tooltip>
+        </comm-tooltip>
       </div>
       <div class="item-right">
         <span v-if="item.desc">{{ item.desc }}</span>
@@ -60,13 +60,7 @@
         style="letter-spacing: 0.1rem"
         >CONFIRM AND SEND</span
       >
-      <CommLoading
-        v-else
-        style="margin: auto"
-        loadingColor="white"
-        width="2rem"
-        height="2rem"
-      />
+      <CommLoading v-else width="3rem" height="3rem" />
     </CommBtn>
   </div>
 </template>
@@ -85,6 +79,7 @@ import {
   SvgIconThemed,
   HelpIcon,
   CommBtn,
+  CommTooltip,
 } from '../../components'
 import util from '../../util/util'
 import Middle from '../../util/middle/middle'
@@ -100,6 +95,7 @@ export default {
     HelpIcon,
     CommLoading,
     CommBtn,
+    CommTooltip,
   },
   data() {
     return {

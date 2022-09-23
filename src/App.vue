@@ -37,9 +37,9 @@
 import * as lightbg from './assets/v2/light-bg.png'
 import * as darkbg from './assets/v2/dark-bg.png'
 import * as topbg from './assets/v2/light-top-bg.jpg'
-import TopNav from './components/nav/TopNav.vue'
-import BottomNav from './components/nav/BottomNav.vue'
-import HeaderDialog from './components/nav/HeaderDialog.vue'
+import TopNav from './components/Nav/TopNav'
+import BottomNav from './components/Nav/BottomNav'
+import HeaderDialog from './components/Nav/HeaderDialog'
 import getTransactionList from './core/routes/transactionList'
 import { mapGetters, mapState } from 'vuex'
 

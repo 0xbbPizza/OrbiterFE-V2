@@ -93,12 +93,12 @@
           <SvgIconThemed v-if="this.fromChainArray.length > 1" />
         </div>
         <div style="display: flex; align-items: center" class="right">
-          <o-tooltip>
+          <comm-tooltip>
             <template v-slot:titleDesc>
               <span v-html="toValueToolTip"></span>
             </template>
             <help-icon style="margin-left: 0.5rem" size="sm" />
-          </o-tooltip>
+          </comm-tooltip>
 
           <div class="to-value">{{ toValue }}</div>
         </div>
@@ -152,12 +152,12 @@
           <span class="Text" v-else
             >{{ gasSavingMin }} ~ {{ gasSavingMax }}</span
           >
-          <o-tooltip placement="bottom">
+          <comm-tooltip placement="bottom">
             <template v-slot:titleDesc>
               <span v-html="gasFeeToolTip"></span>
             </template>
             <help-icon style="margin-left: 0.5rem" size="sm" />
-          </o-tooltip>
+          </comm-tooltip>
         </div>
       </div>
       <div class="item">
@@ -177,12 +177,12 @@
           <span style="margin-left: 0.4rem" v-else>{{
             transferSavingTime
           }}</span>
-          <o-tooltip placement="bottom">
+          <comm-tooltip placement="bottom">
             <template v-slot:titleDesc>
               <span v-html="timeSpenToolTip"></span>
             </template>
             <help-icon style="margin-left: 0.5rem" size="sm" />
-          </o-tooltip>
+          </comm-tooltip>
         </div>
       </div>
     </div>
@@ -217,6 +217,7 @@ import {
   SvgIconThemed,
   Loading,
   HelpIcon,
+  CommTooltip,
 } from '../../components'
 import makerInfo from '../../core/routes/makerInfo'
 import util from '../../util/util'
@@ -238,6 +239,7 @@ export default {
     CommDialog,
     SvgIconThemed,
     HelpIcon,
+    CommTooltip,
   },
   data() {
     return {

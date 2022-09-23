@@ -1,5 +1,8 @@
 <template>
-  <div class="senderContent">
+  <div
+    class="senderContent"
+    :style="{ width: status === '3' ? '60rem' : '48rem' }"
+  >
     <keep-alive>
       <Transfer
         v-on:stateChanged="changeState"
@@ -45,7 +48,7 @@
 <script>
 import Transfer from './transfer'
 import Confirm from './confirm'
-import Proceed from '../../components/sender/proceed'
+import Proceed from './proceed'
 import Detail from '../../components/sender/detail'
 import Middle from '../../util/middle/middle'
 export default {
@@ -93,28 +96,8 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
-@media screen and (max-width: 5000px) {
-  .senderContent {
-    .grant {
-      font-size: 10px;
-    }
-  }
-}
-
-@media screen and (min-width: 5000px) {
-  .senderContent {
-    display: flex;
-    justify-content: space-between;
-    padding: 8.8% 0 0 0;
-    margin: 0 auto;
-    width: 100%;
-    max-width: 128rem;
-    .left {
-      margin-left: 6.7%;
-    }
-    .right {
-      margin-right: 6.7%;
-    }
-  }
+.senderContent {
+  height: 54rem;
+  padding: 2.4rem 2rem;
 }
 </style>
