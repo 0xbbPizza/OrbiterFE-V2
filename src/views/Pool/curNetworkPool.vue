@@ -28,7 +28,7 @@
         <span
           class="option-button"
           @click="togglePageTab({ type: 'curNetworkPoolMode', value: false })"
-          >Pools & Add Liquidity</span
+          >Liquidity pools</span
         >
       </div>
       <div class="pool-box-main">
@@ -73,7 +73,7 @@
             </div>
             <div class="content-right">
               <span class="content-item"
-                >Last Day Revenue
+                >Previous day revenue
                 <SvgIconThemed
                   class="mode-icon"
                   icon="clock"
@@ -96,9 +96,9 @@
           />
           <div class="line-content">
             <div class="content-left">
-              <span class="content-item">Wait to be filled Amount</span>
+              <span class="content-item">Liquidity Gap</span>
               <span class="content-value">{{
-                item.filledAmount + ' ' + item.tokenName
+                item.liquidityGap + ' ' + item.tokenName
               }}</span>
             </div>
             <div class="content-right">
@@ -315,7 +315,7 @@ export default {
         customProvider
       )
       const balanceAmount = await dTokenInstance.balanceOf(signer.getAddress())
-      const filledAmount = await dTokenInstance.totalBorrows()
+      const liquidityGap = await dTokenInstance.totalBorrows()
       const apy = await this.getSupplyRatePerBlock(dTokenInstance)
       const routerAction = {
         DAI: 3000,
@@ -345,7 +345,7 @@ export default {
         tokenName: await dTokenInstance.symbol(),
         amount: this.$decimal.formatToken(balanceAmount, tokenName),
         apr: apy,
-        filledAmount: this.$decimal.formatToken(filledAmount, tokenName),
+        liquidityGap: this.$decimal.formatToken(liquidityGap, tokenName),
         totalRevenue: this.$decimal.formatToken(
           ethers.BigNumber.from(totalRevenue),
           tokenName
@@ -409,7 +409,7 @@ export default {
         )
         return
       }
-      if (Number(item.filledAmount) !== 0) {
+      if (Number(item.liquidityGap) !== 0) {
         util.showMessage(
           'Borrowing has been started and full redemption is not supported for the time being.',
           'warning'

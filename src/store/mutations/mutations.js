@@ -49,10 +49,10 @@ export default {
         (liquidityDataList[i]['apr'] / 365) * liquidityDataList[i]['amount'],
         liquidityDataList[i].tokenName
       )
-      liquidityDataList[i]['filledAmount'] = number_format(
-        liquidityDataList[i]['filledAmount'],
+      liquidityDataList[i]['liquidityGap'] = number_format(
+        liquidityDataList[i]['liquidityGap'],
         liquidityDataList[i].tokenName,
-        liquidityDataList[i]['filledAmount'] === '0.0' ? undefined : 8
+        liquidityDataList[i]['liquidityGap'] === '0.0' ? undefined : 8
       )
       liquidityDataList[i]['estimatedProfit'] = number_format(
         liquidityDataList[i]['dayRevenue'] * 7,
