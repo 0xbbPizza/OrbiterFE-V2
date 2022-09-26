@@ -46,13 +46,6 @@
         style="border-bottom: 0.2rem dashed rgba(0, 0, 0, 0.2); height: 4.3rem"
       ></div>
     </div>
-    <div style="display: flex; text-align: left">
-      <SvgIconThemed style="margin-right: 1rem" icon="info" />
-      <span style="color: #df2e2d; flex: 1"
-        >Modifying the transfer amount in MetaMask will cause the transfer to
-        fail.</span
-      >
-    </div>
     <CommBtn @click="RealTransfer" class="select-wallet-dialog">
       <span
         v-if="!transferLoading"

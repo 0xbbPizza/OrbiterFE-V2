@@ -189,6 +189,7 @@ export default {
       GasTokenMap[fromChainID.toString()]
     ) {
       let gasPrice = await this.getGasPrice(fromChainID.toString())
+      console.log('gasPrice: ', gasPrice);
       if (!gasPrice) {
         let gas =
           (GasPriceMap[fromChainID.toString()] *
@@ -417,6 +418,7 @@ export default {
     if (fromChainID === 7 || fromChainID === 77) {
       // OP get
       let fromGasPrice = await this.getGasPrice(fromChainID)
+      console.log('fromGasPrice: ', fromGasPrice);
       // op WithDraw
       let OPWithDrawOPGas = fromGasPrice * OP_ETH_WITHDRAW_ONOP_L2
 

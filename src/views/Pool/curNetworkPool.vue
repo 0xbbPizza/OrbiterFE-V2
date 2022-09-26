@@ -328,6 +328,7 @@ export default {
       try {
         url = `http://ec2-35-73-220-137.ap-northeast-1.compute.amazonaws.com:${routerAction[tokenName]}/getAccountRevenue/${this.web3.coinbase}/${this.$env.dTokenAddress[tokenName][toChainId]}`
         totalRevenue = (await axios.get(url)).data
+        totalRevenue = totalRevenue > 0 ? String(totalRevenue) : totalRevenue
       } catch (error) {
         console.log(
           'the totalRevenue will be set 0 ,because http error:',

@@ -82,7 +82,6 @@
               Orbiter's Maker provides liquidity for Layer 2 and benefits from
               it.
             </div>
-            <!-- <div @click="clickLearnMore" class="maker-link">LEARN MORE</div> -->
             <div class="maker-foot-btn">Connect a Wallet</div>
           </div>
         </div>

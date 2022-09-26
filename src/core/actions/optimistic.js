@@ -9,11 +9,11 @@ Axios.axios()
 var configNet = config.optimistic.Mainnet
 
 export default {
-  getTxList: function(req, chainId, isTokentx = true) {
+  getTxList: function (req, chainId, isTokentx = true) {
     return new Promise((resolve, reject) => {
       const params = {
         module: 'account',
-        action: isTokentx ? 'tokentx' : 'txlist',
+        action: isTokentx ? 'tokentx' : 'txlistinternal',
         address: req.maker,
         startblock: req.startblock,
         endblock: req.endblock,
@@ -22,11 +22,11 @@ export default {
         sort: 'asc'
       }
       if (chainId == 77) {
-        configNet = config.optimistic.Rinkeby
+        configNet = config.optimistic.Goerli
       }
       axios
         .get(configNet, { params })
-        .then(function(response) {
+        .then(function (response) {
           if (response.status === 200) {
             var respData = response.data
             if (respData.status === '1' && respData.message === 'OK') {
@@ -46,7 +46,7 @@ export default {
             })
           }
         })
-        .catch(function(error) {
+        .catch(function (error) {
           reject({
             errorCode: 2,
             errorMsg: error
@@ -54,7 +54,7 @@ export default {
         })
     })
   },
-  getTransationList: async function(req, chainId) {
+  getTransationList: async function (req, chainId) {
     const tokentxList = await this.getTxList(req, chainId)
 
     // contact eth txlist
@@ -69,9 +69,9 @@ export default {
 
     return tokentxList
   },
-  getBlockNumberWithTimeStamp: function(req, chainId) {
+  getBlockNumberWithTimeStamp: function (req, chainId) {
     if (chainId == 77) {
-      configNet = config.optimistic.Rinkeby
+      configNet = config.optimistic.Goerli
     }
     return new Promise((resolve, reject) => {
       const cacheKey = `optimistic.getBlockNumberWithTimeStamp__${req.closest}`
@@ -89,7 +89,7 @@ export default {
       }
       axios
         .get(configNet, { params })
-        .then(function(response) {
+        .then(function (response) {
           if (response.status === 200) {
             var respData = response.data
             if (respData.status === '1' && respData.message === 'OK') {
@@ -106,7 +106,7 @@ export default {
             })
           }
         })
-        .catch(function(error) {
+        .catch(function (error) {
           reject({
             errorCode: 2,
             errorMsg: error

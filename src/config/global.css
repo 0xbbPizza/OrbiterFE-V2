@@ -22,14 +22,14 @@
 */
 /* default is Inter Bold */
 @font-face {
-  font-family: 'Inter Bold';
+  font-family: "Inter Bold";
   font-style: normal;
   src: url('../assets/fonts/Inter-Bold-4.otf');
   font-stretch: 100%;
 }
 
 @font-face {
-  font-family: 'Inter Regular';
+  font-family: "Inter Regular";
   font-style: normal;
   src: url('../assets/fonts/Inter-Regular-9.otf');
   font-stretch: 100%;
