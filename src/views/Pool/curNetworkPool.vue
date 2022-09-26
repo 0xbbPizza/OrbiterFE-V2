@@ -102,7 +102,7 @@
               }}</span>
             </div>
             <div class="content-right">
-              <span class="content-item">Estimated 7 days Profit</span>
+              <span class="content-item">Estimated profit in 7 days</span>
               <span class="content-value">{{
                 item.estimatedProfit + ' ' + item.tokenName
               }}</span>
