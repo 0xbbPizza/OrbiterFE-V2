@@ -238,8 +238,13 @@ function ScanMakerTransfer(
           break
         case 77:
           api = {
-            endPoint: config.optimistic.Rinkeby,
-            key: config.optimistic.key,
+            endPoint: config.optimistic.Goerli,
+            key: '',
+          }
+          extra = {
+            action: 'txlistinternal',
+            TransferChainID,
+            timestamp
           }
           break
       }

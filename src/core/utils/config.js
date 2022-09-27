@@ -25,7 +25,6 @@ export default {
     rinkeyChainID: '66'
   },
   optimistic: {
-    key: 'J2WYFMDTAGFXSUMQQ9AXE8Z8HS9D2B7X36',
     Mainnet: 'https://api-optimistic.etherscan.io/api',
     Goerli: 'https://blockscout.com/optimism/goerli/api',
     chainID: '7',

@@ -337,7 +337,7 @@ export default {
         totalRevenue = '0'
       }
 
-      var chainData = {
+      const chainData = {
         chainName: util.chainName(
           toChainId,
           this.$env.localChainID_netChainID[toChainId]
@@ -365,8 +365,8 @@ export default {
           index < tokenArrayLength;
           index++
         ) {
+          const tokenName = tokenArray[index]
           for (let i = 0; i < networkLength; i++) {
-            const tokenName = tokenArray[index]
             const item = this.poolNetworkOrTokenConfig.NetworkArray[i]
             promiseList.push(() => this.getLiquidityData(tokenName, item))
           }

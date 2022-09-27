@@ -243,7 +243,6 @@ export default {
   },
   data() {
     return {
-      dialogFormVisible: false,
       form: {
         name: '',
         delivery: false,
@@ -251,7 +250,6 @@ export default {
         resource: '',
         desc: '',
       },
-      formLabelWidth: '12rem',
       destination: '',
 
       gasCostLoading: false,
@@ -1473,7 +1471,6 @@ export default {
         if (!makerAddress) {
           return ''
         }
-
         const response = await transferCalculate.getTransferBalance(
           chainId,
           tokenAddress,

@@ -189,7 +189,6 @@ export default {
       GasTokenMap[fromChainID.toString()]
     ) {
       let gasPrice = await this.getGasPrice(fromChainID.toString())
-      console.log('gasPrice: ', gasPrice);
       if (!gasPrice) {
         let gas =
           (GasPriceMap[fromChainID.toString()] *

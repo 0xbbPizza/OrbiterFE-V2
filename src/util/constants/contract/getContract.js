@@ -101,10 +101,11 @@ async function getTransferGasLimit(localChainID, makerInfo, from, to, value) {
   }
 }
 
-function getSourceContract(chainID) {
+function getSourceContract(chainID, makerInfo) {
   if (store.state.web3.isInstallMeta) {
     const web3 = new Web3(window.ethereum)
     var ABI = sourceABI
+    makerInfo.override === false ? null : chainID = makerInfo.override
     var Address = env.sourceAddress[store.state.transferData.selectTokenInfo.token][chainID]
     const ecourseContractInstance = new web3.eth.Contract(ABI, Address)
     if (!ecourseContractInstance) {
