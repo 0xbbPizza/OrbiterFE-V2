@@ -21,8 +21,7 @@ export default {
         avalibleDeposit: selectMakerInfo.c1AvalibleDeposit,
         tradingFee: selectMakerInfo.c1TradingFee,
         gasFee: selectMakerInfo.c1GasFee,
-        avalibleTimes: selectMakerInfo.c1AvalibleTimes,
-        override: selectMakerInfo.override.c1ID
+        avalibleTimes: selectMakerInfo.c1AvalibleTimes
       }
     } else {
       return {
@@ -40,8 +39,7 @@ export default {
         avalibleDeposit: selectMakerInfo.c2AvalibleDeposit,
         tradingFee: selectMakerInfo.c2TradingFee,
         gasFee: selectMakerInfo.c2GasFee,
-        avalibleTimes: selectMakerInfo.c2AvalibleTimes,
-        override: selectMakerInfo.override.c2ID
+        avalibleTimes: selectMakerInfo.c2AvalibleTimes
       }
     }
   },

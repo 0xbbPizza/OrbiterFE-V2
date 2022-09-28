@@ -2,6 +2,9 @@ import { toggleBodyCls } from '../../util/theme/theme'
 import { number_format } from '../../util/decimal/decimal'
 import { getDefaultProvider } from '../../util/constants/web3/provider'
 export default {
+  updateContractAddress(state, payload) {
+    state.contractAddress = payload
+  },
   changeMobileStatus(state, payload) {
     state.isMobile = payload
   },

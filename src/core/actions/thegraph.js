@@ -37,10 +37,6 @@ const nowMakerList = [
         endTime: 99999999999999,
       },
     ],
-    override: {
-      c1ID: false,
-      c2ID: false
-    }
   },
   {
     makerAddress: '0x49377441951437beE356D7d90a16dFF97C66fBB0',
@@ -48,7 +44,7 @@ const nowMakerList = [
     c2ID: 77,
     c1Name: 'Goerli',
     c2Name: 'Optimism(G)',
-    t1Address: env.coinAddress['DAI'][577],
+    t1Address: env.coinAddress['DAI'][5],
     t2Address: env.coinAddress['DAI'][77],
     tName: 'DAI',
     c1MinPrice: 0.1,
@@ -74,10 +70,6 @@ const nowMakerList = [
         endTime: 99999999999999,
       },
     ],
-    override: {
-      c1ID: 577,
-      c2ID: false
-    }
   },
   {
     makerAddress: '0x49377441951437beE356D7d90a16dFF97C66fBB0',
@@ -111,10 +103,6 @@ const nowMakerList = [
         endTime: 99999999999999,
       },
     ],
-    override: {
-      c1ID: false,
-      c2ID: false
-    }
   },
   // USDC
   // {
@@ -250,10 +238,6 @@ const nowMakerList = [
         endTime: 99999999999999,
       },
     ],
-    override: {
-      c1ID: false,
-      c2ID: false
-    }
   },
   {
     makerAddress: '0x49377441951437beE356D7d90a16dFF97C66fBB0',
@@ -287,10 +271,6 @@ const nowMakerList = [
         endTime: 99999999999999,
       },
     ],
-    override: {
-      c1ID: false,
-      c2ID: false
-    }
   },
   {
     makerAddress: '0x49377441951437beE356D7d90a16dFF97C66fBB0',
@@ -324,10 +304,6 @@ const nowMakerList = [
         endTime: 99999999999999,
       },
     ],
-    override: {
-      c1ID: false,
-      c2ID: false
-    }
   },
 ]
 

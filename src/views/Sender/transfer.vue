@@ -1093,7 +1093,7 @@ export default {
       })
   },
   methods: {
-    ...mapMutations(['updateTransferTokenInfo']),
+    ...mapMutations(['updateTransferTokenInfo', 'switchContractAddress']),
     initChainArray() {
       this.fromChainArray = []
       this.makerInfoList.filter((makerInfo) => {

@@ -97,7 +97,7 @@ export default {
   },
   asyncComputed: {},
   computed: {
-    ...mapState(['transferData', 'confirmData', 'web3']),
+    ...mapState(['transferData', 'confirmData', 'web3', 'contractAddress']),
     ...mapGetters(['isLogin', 'realSelectMakerInfo']),
     getConfirmData() {
       // 0.000120000000009022 to 0.000120...09022
@@ -260,10 +260,7 @@ export default {
 
       const transferContract = getTransferContract(fromChainID, selectMakerInfo)
       console.log('transferContract: ', transferContract)
-      const sourceContract = getSourceContract(
-        this.transferData.fromChainID,
-        selectMakerInfo
-      )
+      const sourceContract = getSourceContract(this.transferData.fromChainID)
       console.log('sourceContract: ', sourceContract)
       if (!sourceContract) {
         this.$notify.error({
@@ -346,16 +343,16 @@ export default {
           const allowance = await transferContract.methods
             .allowance(
               account,
-              this.$env.sourceAddress[this.transferData.selectTokenInfo.token][
-                this.transferData.fromChainID
-              ]
+              this.contractAddress.sourceAddress[
+                this.transferData.selectTokenInfo.token
+              ][this.transferData.fromChainID]
             )
             .call()
           console.warn('transferContract allowance: ', allowance)
           if (ethers.BigNumber.from(allowance).lt(amount)) {
             const approveTransactionHash = await transferContract.methods
               .approve(
-                this.$env.sourceAddress[
+                this.contractAddress.sourceAddress[
                   this.transferData.selectTokenInfo.token
                 ][this.transferData.fromChainID],
                 ethers.constants.MaxUint256

@@ -41,12 +41,12 @@ import TopNav from './components/Nav/TopNav'
 import BottomNav from './components/Nav/BottomNav'
 import HeaderDialog from './components/Nav/HeaderDialog'
 import getTransactionList from './core/routes/transactionList'
-import { mapGetters, mapState } from 'vuex'
+import { mapGetters, mapState, mapMutations } from 'vuex'
 
 export default {
   name: 'App',
   computed: {
-    ...mapState(['isMobile']),
+    ...mapState(['isMobile', 'contractAddress']),
     ...mapGetters(['isLogin']),
     isLightMode() {
       return this.$store.state.themeMode === 'light'
@@ -58,7 +58,6 @@ export default {
           return {
             'background-position': 'left bottom, left top',
             'background-repeat': 'no-repeat',
-            // 'background-size': '100% 36%, 127% 100%',
             'background-size': '100% 36%, 100% 100%',
             'background-image': `url(${lightbg}), url(${topbg})`,
           }
@@ -91,6 +90,14 @@ export default {
     if (localStorage.getItem('localLogin') === 'true') {
       this.$store.dispatch('registerWeb3').then(() => {})
     }
+
+    const contractAddress = {
+      dTokenAddress: this.$env.dTokenAddress,
+      destAddress: this.$env.destAddress,
+      sourceAddress: this.$env.sourceAddress,
+      coinAddress: this.$env.coinAddress,
+    }
+    this.updateContractAddress(contractAddress)
   },
   watch: {
     isLogin: function (newValue) {
@@ -114,6 +121,7 @@ export default {
     },
   },
   methods: {
+    ...mapMutations(['updateContractAddress']),
     getHistory() {
       if (this.isLogin && this.$store.getters.realSelectMakerInfo) {
         this.$store.commit('updateTransactionList', null)

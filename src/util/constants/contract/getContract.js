@@ -10,7 +10,6 @@ import {
 import { store } from '../../../store'
 import { localWeb3, localWSWeb3 } from './localWeb3.js'
 import util from '../../util'
-import env from '../../../../env'
 
 // Get a token contract on the L2 network
 function getLocalCoinContract(localChainID, tokenAddress, state) {
@@ -101,12 +100,11 @@ async function getTransferGasLimit(localChainID, makerInfo, from, to, value) {
   }
 }
 
-function getSourceContract(chainID, makerInfo) {
+function getSourceContract(chainID) {
   if (store.state.web3.isInstallMeta) {
     const web3 = new Web3(window.ethereum)
     var ABI = sourceABI
-    makerInfo.override === false ? null : chainID = makerInfo.override
-    var Address = env.sourceAddress[store.state.transferData.selectTokenInfo.token][chainID]
+    var Address = store.state.contractAddress.sourceAddress[store.state.transferData.selectTokenInfo.token][chainID]
     const ecourseContractInstance = new web3.eth.Contract(ABI, Address)
     if (!ecourseContractInstance) {
       return null
@@ -119,7 +117,7 @@ function getSourceContract(chainID, makerInfo) {
 
 function getCoinContractInstance(tokenName, chainID, provider) {
   return new ethers.Contract(
-    env.coinAddress[tokenName][chainID],
+    store.state.contractAddress.coinAddress[tokenName][chainID],
     CoinABI,
     provider
   )
@@ -127,7 +125,7 @@ function getCoinContractInstance(tokenName, chainID, provider) {
 
 function getDestContractInstance(tokenName, chainID, provider) {
   return new ethers.Contract(
-    env.destAddress[tokenName][chainID],
+    store.state.contractAddress.destAddress[tokenName][chainID],
     DestABI,
     provider
   )
@@ -135,7 +133,7 @@ function getDestContractInstance(tokenName, chainID, provider) {
 
 function getDTokenContractInstance(tokenName, chainID, provider) {
   return new ethers.Contract(
-    env.dTokenAddress[tokenName][chainID],
+    store.state.contractAddress.dTokenAddress[tokenName][chainID],
     dTokenABI,
     provider
   )

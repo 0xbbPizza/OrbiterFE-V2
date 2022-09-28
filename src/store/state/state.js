@@ -71,6 +71,7 @@ const state = {
     toChainId: 0,
     tokenInfoArray: [],
   },
+  contractAddress: {},
   themeMode: localStorage.getItem('themeMode') || 'light', // light dark
   curPage: {
     Status: '1',

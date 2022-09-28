@@ -190,7 +190,12 @@ export default {
     allNetworkPool,
   },
   computed: {
-    ...mapState(['curPage', 'web3', 'poolNetworkOrTokenConfig']),
+    ...mapState([
+      'curPage',
+      'web3',
+      'poolNetworkOrTokenConfig',
+      'contractAddress',
+    ]),
     ...mapGetters(['getCurNetworkLiquidityData', 'HasOrNotTrading']),
     isLoading() {
       return this.getCurNetworkLiquidityData.length === 0 ? true : false
@@ -326,7 +331,7 @@ export default {
       let url,
         totalRevenue = null
       try {
-        url = `http://ec2-35-73-220-137.ap-northeast-1.compute.amazonaws.com:${routerAction[tokenName]}/getAccountRevenue/${this.web3.coinbase}/${this.$env.dTokenAddress[tokenName][toChainId]}`
+        url = `http://ec2-35-73-220-137.ap-northeast-1.compute.amazonaws.com:${routerAction[tokenName]}/getAccountRevenue/${this.web3.coinbase}/${this.contractAddress.dTokenAddress[tokenName][toChainId]}`
         totalRevenue = (await axios.get(url)).data
         totalRevenue = totalRevenue > 0 ? String(totalRevenue) : totalRevenue
       } catch (error) {
@@ -359,7 +364,7 @@ export default {
         let promiseList = []
         for (
           let index = 0,
-            tokenArray = Object.keys(this.$env.dTokenAddress),
+            tokenArray = Object.keys(this.contractAddress.dTokenAddress),
             tokenArrayLength = tokenArray.length,
             networkLength = this.poolNetworkOrTokenConfig.NetworkArray.length;
           index < tokenArrayLength;

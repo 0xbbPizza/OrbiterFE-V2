@@ -136,7 +136,13 @@ export default {
     CommLoading,
   },
   computed: {
-    ...mapState(['web3', 'dialog', 'poolNetworkOrTokenConfig', 'transferData']),
+    ...mapState([
+      'web3',
+      'dialog',
+      'poolNetworkOrTokenConfig',
+      'transferData',
+      'contractAddress',
+    ]),
     ...mapGetters(['realSelectMakerInfo', 'isLogin']),
     accountBalance() {
       if (
@@ -418,7 +424,7 @@ export default {
         if (!isETH) {
           allowanceAmount = await coinInstance.allowance(
             account,
-            this.$env.dTokenAddress[this.destChainInfo.tokenName][
+            this.contractAddress.dTokenAddress[this.destChainInfo.tokenName][
               this.poolNetworkOrTokenConfig.toChainId
             ]
           )
@@ -477,7 +483,7 @@ export default {
           )
         ) {
           await coinInstance.approve(
-            this.$env.dTokenAddress[this.destChainInfo.tokenName][
+            this.contractAddress.dTokenAddress[this.destChainInfo.tokenName][
               this.poolNetworkOrTokenConfig.toChainId
             ],
             ethers.constants.MaxUint256
