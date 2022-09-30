@@ -105,7 +105,6 @@
 <script>
 import util from '../../util/util'
 import { CommLoading, CommBoxHeader, SvgIconThemed } from '../../components'
-
 export default {
   name: 'Proceeding',
   props: {},

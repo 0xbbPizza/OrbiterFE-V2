@@ -9,7 +9,7 @@ async function installWeb3() {
   if (window.ethereum) {
     try {
       web3Provider = window.ethereum
-      await window.ethereum.enable()
+      await window.ethereum.request({ method: 'eth_requestAccounts' })
     } catch (error) {
       store.commit('updateIsInstallMeta', true)
       store.commit('updateCoinbase', '')
@@ -48,11 +48,11 @@ async function getWeb3() {
     // console.log('coinbase=', coinbase)
     if (error || !coinbase) {
       showMessage(
-        'get coinbase failed，please unlock metamask or generate a new address',
+        'get coinbase failed,please unlock metamask or generate a new address',
         'error',
       )
       window.ethereum
-        .send('eth_requestAccounts')
+        .request({ method: 'eth_requestAccounts' })
         .then((coin) => {
           // console.log('result =', coin.result)
           store.commit('updateCoinbase', coin.result[0])
@@ -71,7 +71,7 @@ async function getWeb3() {
   pollWeb3()
 }
 
-const showMessage = function(message, type) {
+const showMessage = function (message, type) {
   Message({
     showClose: true,
     duration: 2000,

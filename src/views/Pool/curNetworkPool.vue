@@ -331,7 +331,7 @@ export default {
       let url,
         totalRevenue = null
       try {
-        url = `http://ec2-35-73-220-137.ap-northeast-1.compute.amazonaws.com:${routerAction[tokenName]}/getAccountRevenue/${this.web3.coinbase}/${this.contractAddress.dTokenAddress[tokenName][toChainId]}`
+        url = `https://ec2-35-73-220-137.ap-northeast-1.compute.amazonaws.com:${routerAction[tokenName]}/getAccountRevenue/${this.web3.coinbase}/${this.contractAddress.dTokenAddress[tokenName][toChainId]}`
         totalRevenue = (await axios.get(url)).data
         totalRevenue = totalRevenue > 0 ? String(totalRevenue) : totalRevenue
       } catch (error) {

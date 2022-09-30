@@ -259,9 +259,7 @@ export default {
         : this.web3.coinbase
 
       const transferContract = getTransferContract(fromChainID, selectMakerInfo)
-      console.log('transferContract: ', transferContract)
       const sourceContract = getSourceContract(this.transferData.fromChainID)
-      console.log('sourceContract: ', sourceContract)
       if (!sourceContract) {
         this.$notify.error({
           title: `Failed to obtain contract information, please refresh and try again`,

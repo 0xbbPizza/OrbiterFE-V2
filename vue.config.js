@@ -65,7 +65,7 @@ module.exports = {
 
     proxy: {
       '/send': {
-        target: 'http://ec2-35-73-220-137.ap-northeast-1.compute.amazonaws.com',
+        target: 'https://ec2-35-73-220-137.ap-northeast-1.compute.amazonaws.com',
         secure: true,
         changeOrigin: true,
         pathRewrite: {
@@ -80,6 +80,7 @@ module.exports = {
       warnings: false,
       errors: false,
     },
+    https: true
   },
   configureWebpack: (config) => {
     Object.assign(config.resolve, {

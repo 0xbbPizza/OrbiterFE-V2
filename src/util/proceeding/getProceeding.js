@@ -293,13 +293,28 @@ function ScanMakerTransfer(
       const currentBlock = await web3.eth.getBlockNumber()
 
       const tokenContract = new web3.eth.Contract(CoinABI, tokenAddress)
+      let advanceBlock = 0
+      switch (TransferChainID) {
+        case 5:
+          advanceBlock = 0
+          break;
+        case 22:
+          advanceBlock = 100
+          break;
+        case 77:
+          advanceBlock = 100
+          break;
+        default:
+          advanceBlock = 10
+          break;
+      }
       // Generate filter options
       const options = {
         filter: {
           from: from,
           to: to,
         },
-        fromBlock: currentBlock - 100,
+        fromBlock: currentBlock - advanceBlock,
         toBlock: 'latest',
       }
       tokenContract.getPastEvents('Transfer', options, function (error, events) {
@@ -309,8 +324,9 @@ function ScanMakerTransfer(
         if (error) {
           console.log('111Error =', error)
         } else {
-          for (let index = 0; index < events.length; index++) {
-            const txinfo = events[index]
+          let eventList = events.reverse()
+          for (let index = 0; index < eventList.length; index++) {
+            const txinfo = eventList[index]
             console.log('txinfo =', txinfo)
             if (
               checkData(
