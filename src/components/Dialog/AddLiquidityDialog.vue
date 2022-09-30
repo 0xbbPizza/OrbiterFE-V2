@@ -445,7 +445,7 @@ export default {
               this.transferValue,
               this.destChainInfo.tokenName
             )
-          ).lt(this.$decimal.parseToken('0.001'))
+          ).lt(this.$decimal.parseToken('0.001', this.destChainInfo.tokenName))
         ) {
           util.showMessage(
             'The minimum amount you enter must be greater than or equal to 0.001',
