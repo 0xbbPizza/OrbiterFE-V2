@@ -396,8 +396,13 @@ export default {
       return calculationApy
     },
     async reduceLiquidity(item) {
-      console.log(item)
       let signer = this.web3.provider.getSigner()
+      console.log(item.liquidity)
+      console.log(
+        'item.liquidity',
+        this.$decimal.parseToken(item.liquidity, item.tokenName)
+      )
+
       if (
         ethers.BigNumber.from(
           this.$decimal.parseToken(item.liquidity, item.tokenName)

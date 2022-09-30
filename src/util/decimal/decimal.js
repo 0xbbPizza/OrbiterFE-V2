@@ -45,7 +45,7 @@ const decimal = {
    */
   parseToken(value, tokenName) {
     let number = env.precision[tokenName] === undefined ? 18 : env.precision[tokenName]
-    return ethers.utils.parseUnits(value, number)
+    return ethers.utils.parseUnits(value.replace(/,/g, ''), number)
   },
   /**
    * 18 precision tokens

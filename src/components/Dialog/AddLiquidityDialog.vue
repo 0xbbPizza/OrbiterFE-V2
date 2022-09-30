@@ -145,14 +145,7 @@ export default {
     ]),
     ...mapGetters(['realSelectMakerInfo', 'isLogin']),
     accountBalance() {
-      if (
-        this.transferData.selectMakerInfo.c1ID ===
-        this.poolNetworkOrTokenConfig.toChainId
-      ) {
-        return this.c1Balance
-      } else {
-        return this.c2Balance
-      }
+      return this.Balance
     },
     accountBalanceLoading() {
       if (this.accountBalance === null) {
@@ -164,85 +157,61 @@ export default {
   watch: {
     'web3.coinbase': function (newValue, oldValue) {
       if (!newValue || newValue === '0x') {
-        this.c1Balance = 0
-        this.c2Balance = 0
+        this.Balance = 0
       }
       if (oldValue !== newValue && newValue !== '0x') {
-        this.c1Balance = null
-        this.c2Balance = null
-        let selectMakerInfo = this.transferData.selectMakerInfo
-        transferCalculate
-          .getTransferBalance(
-            selectMakerInfo.c1ID,
-            selectMakerInfo.t1Address,
-            selectMakerInfo.tName,
-            this.web3.coinbase
-          )
-          .then((response) => {
-            this.c1Balance = (
-              response /
-              10 ** selectMakerInfo.precision
-            ).toFixed(6)
-          })
-          .catch((error) => {
-            console.log(error)
-            return
-          })
-        transferCalculate
-          .getTransferBalance(
-            selectMakerInfo.c2ID,
-            selectMakerInfo.t2Address,
-            selectMakerInfo.tName,
-            this.web3.coinbase
-          )
-          .then((response) => {
-            this.c2Balance = (
-              response /
-              10 ** selectMakerInfo.precision
-            ).toFixed(6)
-          })
-          .catch((error) => {
-            console.log(error)
-          })
+        this.Balance = null
+        this.getBalance(
+          this.web3.coinbase,
+          this.poolNetworkOrTokenConfig.toChainId,
+          this.contractAddress.coinAddress[this.destChainInfo.tokenName][
+            this.poolNetworkOrTokenConfig.toChainId
+          ],
+          this.destChainInfo.tokenName,
+          this.$env.precision[this.destChainInfo.tokenName]
+        ).then((v) => {
+          if (v) {
+            this.Balance = v
+          }
+        })
       } else {
-        this.c1Balance = 0
-        this.c2Balance = 0
+        this.Balance = 0
       }
     },
-    'transferData.selectMakerInfo': function (newValue, oldValue) {
-      // this.updateExchangeToUsdPrice()
+    // 'transferData.selectMakerInfo': function (newValue, oldValue) {
+    //   // this.updateExchangeToUsdPrice()
 
-      if (this.isLogin && oldValue !== newValue) {
-        this.c1Balance = null
-        this.c2Balance = null
-        transferCalculate
-          .getTransferBalance(
-            newValue.c1ID,
-            newValue.t1Address,
-            newValue.tName,
-            this.web3.coinbase
-          )
-          .then((response) => {
-            this.c1Balance = (response / 10 ** newValue.precision).toFixed(6)
-          })
-          .catch((error) => {
-            console.log(error)
-          })
-        transferCalculate
-          .getTransferBalance(
-            newValue.c2ID,
-            newValue.t2Address,
-            newValue.tName,
-            this.web3.coinbase
-          )
-          .then((response) => {
-            this.c2Balance = (response / 10 ** newValue.precision).toFixed(6)
-          })
-          .catch((error) => {
-            console.log(error)
-          })
-      }
-    },
+    //   if (this.isLogin && oldValue !== newValue) {
+    //     this.c1Balance = null
+    //     this.c2Balance = null
+    //     transferCalculate
+    //       .getTransferBalance(
+    //         newValue.c1ID,
+    //         newValue.t1Address,
+    //         newValue.tName,
+    //         this.web3.coinbase
+    //       )
+    //       .then((response) => {
+    //         this.c1Balance = (response / 10 ** newValue.precision).toFixed(6)
+    //       })
+    //       .catch((error) => {
+    //         console.log(error)
+    //       })
+    //     transferCalculate
+    //       .getTransferBalance(
+    //         newValue.c2ID,
+    //         newValue.t2Address,
+    //         newValue.tName,
+    //         this.web3.coinbase
+    //       )
+    //       .then((response) => {
+    //         this.c2Balance = (response / 10 ** newValue.precision).toFixed(6)
+    //       })
+    //       .catch((error) => {
+    //         console.log(error)
+    //       })
+    //   }
+    // },
     'transferData.selectTokenInfo': function (newValue) {
       this.poolNetworkOrTokenConfig.makerInfoList.filter((makerInfo) => {
         if (
@@ -257,8 +226,25 @@ export default {
         }
       })
     },
-    destChainInfo: function (newValue) {
-      this.selectedTokenChange(newValue.tokenName)
+    destChainInfo: {
+      handler(newValue) {
+        this.selectedTokenChange(newValue.tokenName)
+        this.getBalance(
+          this.web3.coinbase,
+          this.poolNetworkOrTokenConfig.toChainId,
+          this.contractAddress.coinAddress[this.destChainInfo.tokenName][
+            this.poolNetworkOrTokenConfig.toChainId
+          ],
+          this.destChainInfo.tokenName,
+          this.$env.precision[this.destChainInfo.tokenName]
+        ).then((v) => {
+          if (v) {
+            this.Balance = v
+          }
+        })
+      },
+
+      deep: true,
     },
   },
   data() {
@@ -266,33 +252,24 @@ export default {
       transferValue: '',
       c1Balance: null,
       c2Balance: null,
+      Balance: null,
       isLoading: false,
     }
   },
   mounted() {
     setInterval(() => {
-      let selectMakerInfo = this.transferData.selectMakerInfo
-      if (selectMakerInfo && this.isLogin) {
+      if (this.destChainInfo && this.isLogin) {
         this.getBalance(
           this.web3.coinbase,
-          selectMakerInfo.c1ID,
-          selectMakerInfo.t1Address,
-          selectMakerInfo.tName,
-          selectMakerInfo.precision
+          this.poolNetworkOrTokenConfig.toChainId,
+          this.contractAddress.coinAddress[this.destChainInfo.tokenName][
+            this.poolNetworkOrTokenConfig.toChainId
+          ],
+          this.destChainInfo.tokenName,
+          this.$env.precision[this.destChainInfo.tokenName]
         ).then((v) => {
           if (v) {
-            this.c1Balance = v
-          }
-        })
-        this.getBalance(
-          this.web3.coinbase,
-          selectMakerInfo.c2ID,
-          selectMakerInfo.t2Address,
-          selectMakerInfo.tName,
-          selectMakerInfo.precision
-        ).then((v) => {
-          if (v) {
-            this.c2Balance = v
+            this.Balance = v
           }
         })
       }
