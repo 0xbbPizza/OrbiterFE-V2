@@ -178,40 +178,6 @@ export default {
         this.Balance = 0
       }
     },
-    // 'transferData.selectMakerInfo': function (newValue, oldValue) {
-    //   // this.updateExchangeToUsdPrice()
-
-    //   if (this.isLogin && oldValue !== newValue) {
-    //     this.c1Balance = null
-    //     this.c2Balance = null
-    //     transferCalculate
-    //       .getTransferBalance(
-    //         newValue.c1ID,
-    //         newValue.t1Address,
-    //         newValue.tName,
-    //         this.web3.coinbase
-    //       )
-    //       .then((response) => {
-    //         this.c1Balance = (response / 10 ** newValue.precision).toFixed(6)
-    //       })
-    //       .catch((error) => {
-    //         console.log(error)
-    //       })
-    //     transferCalculate
-    //       .getTransferBalance(
-    //         newValue.c2ID,
-    //         newValue.t2Address,
-    //         newValue.tName,
-    //         this.web3.coinbase
-    //       )
-    //       .then((response) => {
-    //         this.c2Balance = (response / 10 ** newValue.precision).toFixed(6)
-    //       })
-    //       .catch((error) => {
-    //         console.log(error)
-    //       })
-    //   }
-    // },
     'transferData.selectTokenInfo': function (newValue) {
       this.poolNetworkOrTokenConfig.makerInfoList.filter((makerInfo) => {
         if (

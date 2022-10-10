@@ -623,10 +623,8 @@ export default {
       if (
         this.transferData.selectMakerInfo.c1ID === this.transferData.fromChainID
       ) {
-        console.log('this.c1Balance: ', this.c1Balance)
         return this.c1Balance
       } else {
-        console.log('this.c2Balance', this.c2Balance)
         return this.c2Balance
       }
     },
