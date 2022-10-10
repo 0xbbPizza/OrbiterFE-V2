@@ -1,5 +1,5 @@
 export default {
-  baseUrl: process.env.NODE_ENV === 'production' ? 'https://ec2-35-73-220-137.ap-northeast-1.compute.amazonaws.com' : '/send',
+  baseUrl: process.env.NODE_ENV === 'production' ? 'https://pizza-api.orbiter.finance' : '/send',
   credential: false,
   localProvider: {
     5: 'VUE_APP_HP_G', // Goerli
