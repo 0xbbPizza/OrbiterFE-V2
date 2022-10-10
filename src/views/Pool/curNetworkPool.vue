@@ -321,7 +321,6 @@ export default {
       )
       const balanceAmount = await dTokenInstance.balanceOf(signer.getAddress())
       const liquidityGap = await dTokenInstance.totalBorrows()
-      console.log('liquidityGap: ', liquidityGap)
       const apy = await this.getSupplyRatePerBlock(dTokenInstance)
       const routerAction = {
         DAI: 3000,
